@@ -4,123 +4,47 @@
 
 body {
   background-color: #000000;
-  cursor: none;
 }
 
-/* Custom Cursor */
+/* Simplified Custom Cursor */
+* {
+  cursor: none !important;
+}
+
 .custom-cursor {
   position: fixed;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #00ff88;
+  width: 12px;
+  height: 12px;
+  background: #fff;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transition: all 0.15s ease;
   transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
   mix-blend-mode: difference;
 }
 
-.custom-cursor::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  background: #00ff88;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: all 0.2s ease;
-}
-
-.custom-cursor.hover {
-  width: 50px;
-  height: 50px;
-  border-color: #ff00ff;
-  background: rgba(255, 0, 255, 0.1);
-}
-
-.custom-cursor.hover::before {
-  width: 10px;
-  height: 10px;
-  background: #ff00ff;
-}
-
-.custom-cursor.click {
-  width: 15px;
-  height: 15px;
-  border-width: 3px;
-}
-
-/* Cursor Trail */
-.cursor-trail {
+.custom-cursor-border {
   position: fixed;
-  width: 8px;
-  height: 8px;
-  background: linear-gradient(45deg, #00ff88, #00d4ff);
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.6;
-  animation: trailFade 0.6s ease-out forwards;
-}
-
-@keyframes trailFade {
-  0% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(0);
-    opacity: 0;
-  }
-}
-
-/* Magnetic effect for buttons */
-.magnetic {
-  transition: transform 0.2s ease;
-}
-
-/* Glow on hover for interactive elements */
-a, button, [role="button"] {
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-a::before, button::before, [role="button"]::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 255, 136, 0.3), transparent);
   transform: translate(-50%, -50%);
-  transition: width 0.4s ease, height 0.4s ease;
-  pointer-events: none;
-  z-index: -1;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  mix-blend-mode: difference;
 }
 
-a:hover::before, button:hover::before, [role="button"]:hover::before {
-  width: 200px;
-  height: 200px;
+.custom-cursor.hover {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-/* Ripple effect on click */
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(0, 255, 136, 0.5);
-  transform: scale(0);
-  animation: rippleEffect 0.6s ease-out;
-  pointer-events: none;
-}
-
-@keyframes rippleEffect {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
+.custom-cursor-border.hover {
+  width: 80px;
+  height: 80px;
+  border-color: rgba(255, 255, 255, 0.5);
 }

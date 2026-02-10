@@ -3,6 +3,7 @@ import { Menu, X, ArrowRight, User, Mail, MessageCircle } from 'lucide-react';
 import LoadingScreen from './components/LoadingScreen.jsx';
 import PageDoodles from './components/PageDoodles.jsx';
 import CustomCursor from './components/CustomCursor.jsx';
+import ScrollBuddy from './components/ScrollBuddy.jsx';
 
 const Portfolio = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -144,6 +145,7 @@ const Portfolio = () => {
     <>
       {isLoading && <LoadingScreen onLoadComplete={handleLoadComplete} />}
       <CustomCursor />
+      <ScrollBuddy />
       {!isLoading && <PageDoodles page={currentPage} />}
       
       <div ref={containerRef} className="font-sans antialiased overflow-hidden relative bg-black min-h-screen">

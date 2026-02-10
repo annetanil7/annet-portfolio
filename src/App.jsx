@@ -1045,7 +1045,7 @@ const Portfolio = () => {
             </section>
 
             <section className="py-32 px-6 lg:px-24">
-              <h2 className="text-5xl font-bold mb-16">Tools I use daily</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-16">Tools I use daily</h2>
               
               <div className="max-w-6xl">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
@@ -1056,7 +1056,7 @@ const Portfolio = () => {
                     { name: 'DevUtils', desc: 'Powerful developer tools.', icon: '🔧', img: 'https://framerusercontent.com/images/rpwLSAvkIDNCAdp6SOAAEQ6t4.png' },
                     { name: 'Blender', desc: 'Free 3D Creation Software', icon: '🎬', img: 'https://framerusercontent.com/images/rpwLSAvkIDNCAdp6SOAAEQ6t4.png' }
                   ].map((tool, idx) => (
-                    <div key={idx} className="group card-hover text-center animate-scale-in" style={{ animationDelay: `${idx * 0.08}s` }}>
+                    <div key={idx} className="group card-hover text-center animate-scale-in relative z-10" style={{ animationDelay: `${idx * 0.08}s` }}>
                       <div className="mb-4 flex justify-center">
                         <div className="w-24 h-24 bg-gradient-to-br from-white/10 to-gray-500/10 rounded-2xl flex items-center justify-center text-5xl group-hover:scale-110 transition-transform duration-300 border border-white/10 group-hover:border-white/30">
                           {tool.icon}

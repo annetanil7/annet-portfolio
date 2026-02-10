@@ -35,7 +35,7 @@ const LoadingScreen = ({ onLoadComplete }) => {
               animation: 'slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards'
             }}
           >
-            ANNET
+            Welcome to <i>Annet's</i> Portfolio!
           </h1>
         </div>
         

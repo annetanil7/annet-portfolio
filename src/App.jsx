@@ -1077,9 +1077,8 @@ const Portfolio = () => {
               <div className="max-w-6xl space-y-24">
                 {[
                   {
-                    company: 'Reflex Labs',
                     period: 'December 2025 - Present',
-                    title: 'UI/UX Engineer, Frontend Developer',
+                    title: 'ReflexLabs UI/UX Engineer, Frontend Developer',
                     points: [
                       'Design and develop user-centric interfaces with a focus on exceptional user experience.',
                       'Implement responsive frontend solutions using modern web technologies.',
@@ -1087,18 +1086,15 @@ const Portfolio = () => {
                     ]
                   },
                   {
-                    company: 'Computer Innovation and Research Association',
-                    period: 'August 2025 - Present',
+                    period: '2025 - present',
                     title: 'Content Creator Head',
                     points: [
-                      'Student run organization focused on innovation and research.',
                       'Led a team of content creators in developing engaging software solutions using various web development tools.',
                       'Designed and implemented innovative content strategies to enhance user experience and engagement.',
                       'Collaborated with cross-functional teams to ensure seamless integration of content across platforms.'
                     ]
                   },
                   {
-                    company: 'National Small Industries Corp',
                     period: 'Jun 2025 - Jul 2025',
                     title: 'AWS Intern',
                     points: [
@@ -1110,10 +1106,7 @@ const Portfolio = () => {
                 ].map((exp, idx) => (
                   <div key={idx} className="grid md:grid-cols-2 gap-12 border-b border-white/10 pb-24">
                     <div>
-                      <div className="inline-block px-6 py-3 bg-white text-black rounded-xl font-bold text-lg mb-4">
-                        {exp.company}
-                      </div>
-                      <p className="text-sm text-gray-400 mt-2">{exp.period}</p>
+                      <h3 className="text-3xl font-bold mb-2">{exp.period}</h3>
                     </div>
                     <div>
                       <h3 className="text-3xl font-bold mb-6">{exp.title}</h3>

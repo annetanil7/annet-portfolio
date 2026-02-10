@@ -1004,8 +1004,8 @@ const Portfolio = () => {
             </section>
 
             <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-24">
-              <p className="text-white/60 text-xs sm:text-sm uppercase tracking-wider mb-6 sm:mb-8 animate-fade-in-up">ACHIEVEMENTS</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-12 sm:mb-16 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent animate-fade-in-up animation-delay-300">CERTIFICATIONS</h2>
+              <p className="text-white/60 text-xs sm:text-sm uppercase tracking-wider mb-6 sm:mb-8">ACHIEVEMENTS</p>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-12 sm:mb-16 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">CERTIFICATIONS</h2>
               
               <div className="max-w-4xl mx-auto">
                 <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
@@ -1025,7 +1025,7 @@ const Portfolio = () => {
                     { title: 'Cisco Networking Academy', subtitle: 'HTML Essentials' },
                     { title: 'OpenEDG Python Institute', subtitle: 'Programming Essentials in Python' }
                   ].map((cert, idx) => (
-                    <div key={idx} className="animate-fade-in-up group card-hover p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all duration-300" style={{animationDelay: `${idx * 0.1}s`}}>
+                    <div key={idx} className="group card-hover p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all duration-300">
                       <h3 className="text-lg font-bold mb-1 group-hover:text-white transition-colors">✓ {cert.title}</h3>
                       <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">{cert.subtitle}</p>
                     </div>
@@ -1045,7 +1045,7 @@ const Portfolio = () => {
             </section>
 
             <section className="py-32 px-6 lg:px-24">
-              <h2 className="text-3xl md:text-4xl font-bold mb-16">Tools I use daily</h2>
+              <h2 className="text-5xl font-bold mb-16">Tools I use daily</h2>
               
               <div className="max-w-6xl">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
@@ -1056,7 +1056,7 @@ const Portfolio = () => {
                     { name: 'DevUtils', desc: 'Powerful developer tools.', icon: '🔧', img: 'https://framerusercontent.com/images/rpwLSAvkIDNCAdp6SOAAEQ6t4.png' },
                     { name: 'Blender', desc: 'Free 3D Creation Software', icon: '🎬', img: 'https://framerusercontent.com/images/rpwLSAvkIDNCAdp6SOAAEQ6t4.png' }
                   ].map((tool, idx) => (
-                    <div key={idx} className="group card-hover text-center animate-scale-in relative z-10" style={{ animationDelay: `${idx * 0.08}s` }}>
+                    <div key={idx} className="group card-hover text-center animate-scale-in" style={{ animationDelay: `${idx * 0.08}s` }}>
                       <div className="mb-4 flex justify-center">
                         <div className="w-24 h-24 bg-gradient-to-br from-white/10 to-gray-500/10 rounded-2xl flex items-center justify-center text-5xl group-hover:scale-110 transition-transform duration-300 border border-white/10 group-hover:border-white/30">
                           {tool.icon}

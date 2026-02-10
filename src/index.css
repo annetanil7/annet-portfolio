@@ -21,7 +21,7 @@ body {
   background: #fff;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 50;
+  z-index: 9999;
   transform: translate(-50%, -50%);
   transition: transform 0.15s ease, opacity 0.15s ease;
   mix-blend-mode: difference;
@@ -34,7 +34,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 49;
+  z-index: 9998;
   transform: translate(-50%, -50%);
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   mix-blend-mode: difference;
@@ -53,24 +53,6 @@ body {
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
-}
-
-/* Scroll reveal animation */
-@keyframes scrollReveal {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.scroll-animate {
-  animation: scrollReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-  will-change: opacity, transform;
 }
 
 /* Fade in animations */

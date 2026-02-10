@@ -1115,7 +1115,7 @@ const Portfolio = () => {
               </div>
             </section>
 
-            <section className="py-32 px-6 lg:px-24 bg-gradient-to-b from-black to-zinc-900 border-t border-zinc-800">
+            <section className="py-32 px-6 lg:px-24 bg-black border-t border-zinc-800">
               <div className="max-w-4xl mx-auto text-center">
                 <h2 className="text-sm uppercase tracking-wider text-white/60 mb-6 animate-fade-in-up">let's connect</h2>
                 <h3 className="text-5xl md:text-6xl font-bold mb-12 animate-fade-in-up animation-delay-300">Ready to create something awesome together?</h3>

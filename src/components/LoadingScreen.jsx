@@ -70,3 +70,4 @@ const LoadingScreen = ({ onLoadComplete }) => {
 };
 
 export default LoadingScreen;
+

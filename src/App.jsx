@@ -693,10 +693,10 @@ const Portfolio = () => {
         />
       )}
 
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerVisible ? 'translate-y-0' : '-translate-y-full'} bg-black/40 backdrop-blur-2xl border-b border-white/10 shadow-2xl`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerVisible ? 'translate-y-0' : '-translate-y-full'} bg-white/5 backdrop-blur-2xl border-b border-white/20 shadow-2xl`}>
         <div className="max-w-7xl mx-auto px-2 sm:px-3 md:px-6 lg:px-8 xl:px-12 py-2 sm:py-3 md:py-5 lg:py-6 xl:py-7 flex items-center justify-between gap-0.5 sm:gap-1.5 md:gap-0 h-12 sm:h-14 md:h-16 lg:h-18 xl:h-20">
           <button onClick={() => { setCurrentPage('home'); window.scrollTo(0, 0); }} className="text-xs sm:text-xs md:text-lg lg:text-2xl xl:text-3xl font-bold tracking-widest hover:text-white transition-colors text-white whitespace-nowrap flex-shrink-0\">
-            ANNET
+            ANNET ANIL
           </button>
           
           <div className="flex md:absolute md:left-1/2 md:-translate-x-1/2 items-center gap-0.5 sm:gap-1 md:gap-3 flex-shrink-0">
@@ -715,12 +715,12 @@ const Portfolio = () => {
             <div className="group relative">
               <button onClick={handleWhatsAppClick} className="nav-icon-button h-8 sm:h-9 md:h-12 rounded-lg sm:rounded-xl bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/20 hover:border-white/30 transition-all duration-300 flex items-center justify-center gap-0.5 sm:gap-1.5 md:gap-3 px-1.5 sm:px-2 md:px-4 shadow-lg hover:shadow-xl flex-shrink-0">
                 <div className="icon-inner flex-shrink-0"><MessageCircle size={12} className="text-white" /></div>
-                <span className="label-tooltip text-white flex-1 text-center text-xs md:text-sm whitespace-nowrap hidden sm:inline">Touch</span>
+                <span className="label-tooltip text-white flex-1 text-center text-xs md:text-sm whitespace-nowrap hidden sm:inline">Get in touch</span>
               </button>
             </div>
           </div>
 
-          <button onClick={handleWhatsAppClick} className="hidden md:block px-4 md:px-6 lg:px-8 xl:px-10 py-2 md:py-3 lg:py-4 xl:py-5 bg-white/10 hover:bg-white hover:text-black rounded-lg md:rounded-xl font-semibold transition-all duration-300 border border-white/20 text-white text-xs md:text-sm lg:text-base xl:text-lg flex-shrink-0">
+          <button onClick={handleWhatsAppClick} className="hidden md:block px-3 md:px-4 lg:px-5 py-1.5 md:py-2 lg:py-2.5 bg-white/10 hover:bg-white hover:text-black rounded-lg md:rounded-xl font-semibold transition-all duration-300 border border-white/20 text-white text-xs md:text-sm lg:text-sm flex-shrink-0">
             Get In Touch
           </button>
         </div>

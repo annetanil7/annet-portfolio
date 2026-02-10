@@ -1025,7 +1025,7 @@ const Portfolio = () => {
                     { title: 'Cisco Networking Academy', subtitle: 'HTML Essentials' },
                     { title: 'OpenEDG Python Institute', subtitle: 'Programming Essentials in Python' }
                   ].map((cert, idx) => (
-                    <div key={idx} className="cert-animate group card-hover p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all duration-300" style={{animationDelay: `${idx * 0.08}s`}}>
+                    <div key={idx} className="scroll-animate group card-hover p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all duration-300">
                       <h3 className="text-lg font-bold mb-1 group-hover:text-white transition-colors">✓ {cert.title}</h3>
                       <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">{cert.subtitle}</p>
                     </div>

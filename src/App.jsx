@@ -270,7 +270,7 @@ const Portfolio = () => {
           transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           cursor: pointer;
         }
-        .magnetic-button:hover { box-shadow: 0 0 30px rgba(139, 92, 246, 0.5); }
+        .magnetic-button:hover { box-shadow: none; }
         
         .hero-text-line {
           display: inline-block;

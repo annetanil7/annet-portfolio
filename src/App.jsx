@@ -961,7 +961,7 @@ const Portfolio = () => {
         )}
 
         {currentPage === 'about' && (
-          <div className="min-h-screen bg-gradient-to-b from-[#0a0a14] via-[#1a1a2e] to-[#0f0f1e] text-white relative overflow-hidden">
+          <div className="min-h-screen bg-black text-white relative overflow-hidden">
             <div className="absolute inset-0">
               <div className="absolute top-32 right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
               <div className="absolute bottom-32 left-20 w-96 h-96 bg-gray-500/5 rounded-full blur-3xl"></div>

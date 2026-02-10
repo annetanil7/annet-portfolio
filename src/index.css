@@ -138,3 +138,9 @@ html {
 .line-draw:hover::after {
   width: 100%;
 }
+
+/* Button hover gradient effect - same as DESIGNER text */
+button.bg-white:hover {
+  background: linear-gradient(to right, #ffffff, #9ca3af) !important;
+  color: #000 !important;
+}

@@ -732,25 +732,16 @@ const Portfolio = () => {
         {currentPage === 'home' && (
           <div className="min-h-screen bg-black text-white">
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-              <div className="absolute inset-0 gradient-bg cinematic-bg">
-                <div className="gradient-orb gradient-orb-1 cinematic"></div>
-                <div className="gradient-orb gradient-orb-2 cinematic"></div>
-                <div className="gradient-orb gradient-orb-3 cinematic"></div>
-                <div className="gradient-orb gradient-orb-4 cinematic"></div>
+              {/* Simple black background with subtle grid */}
+              <div className="absolute inset-0 bg-black">
+                <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.15) 1px, transparent 0)', backgroundSize: '40px 40px'}}></div>
               </div>
-
-              {/* Floating particles */}
-              <div className="absolute top-1/4 left-1/3 w-2 h-2 particle particle-1" style={{top: '15%', left: '20%'}}></div>
-              <div className="absolute top-1/3 right-1/4 w-2 h-2 particle particle-2" style={{top: '30%', right: '15%'}}></div>
-              <div className="absolute bottom-1/3 left-1/4 w-2 h-2 particle particle-3" style={{bottom: '25%', left: '10%'}}></div>
-              <div className="absolute top-2/3 right-1/3 w-2 h-2 particle particle-1" style={{top: '65%', right: '20%'}}></div>
 
               <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-center py-4 sm:py-0">
                 <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-[160px] 2xl:text-[200px] font-black mb-3 sm:mb-4 md:mb-6 lg:mb-8 2xl:mb-12 leading-tight sm:leading-none tracking-tight">
                   <span className="inline-block relative group">
-                    <span className="hero-text-professional hero-digital-word block">DIGITAL</span>
-                    <span className="hero-text-professional hero-designer-word block">DESIGNER</span>
-                    <div className="hero-line-premium group-hover:animate-none"></div>
+                    <span className="block text-white">DIGITAL</span>
+                    <span className="block bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">DESIGNER</span>
                   </span>
                 </h1>
                 <p className="text-xs sm:text-sm md:text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl mb-4 sm:mb-6 md:mb-8 lg:mb-12 2xl:mb-16 max-w-4xl 2xl:max-w-5xl mx-auto hero-description text-gray-300 px-1 sm:px-2">
@@ -820,7 +811,7 @@ const Portfolio = () => {
                 </div>
 
                 <div className="text-center">
-                  <button onClick={() => setCurrentPage('about')} className="group inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-8 py-2 sm:py-4 bg-white text-black rounded-full font-semibold text-xs sm:text-sm md:text-base hover:bg-gray-800 hover:text-white transition-all duration-300">
+                  <button onClick={() => setCurrentPage('about')} className="group inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-8 py-2 sm:py-4 bg-white text-black rounded-full font-semibold text-xs sm:text-sm md:text-base hover:bg-gray-100 transition-all duration-300">
                     Know More
                     <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
                   </button>
@@ -895,7 +886,7 @@ const Portfolio = () => {
                 <h3 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-12">Ready to create something awesome together?</h3>
                 <button 
                   onClick={() => setCurrentPage('contact')}
-                  className="magnetic-button group inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 bg-white text-black rounded-full font-semibold text-xs sm:text-sm md:text-lg hover:bg-gray-800 hover:scale-105 transition-all duration-300"
+                  className="magnetic-button group inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 bg-white text-black rounded-full font-semibold text-xs sm:text-sm md:text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300"
                   onMouseMove={handleMagneticMove}
                   onMouseLeave={handleMagneticLeave}
                   style={{ transform: `translate(${magneticButtonPos.x}px, ${magneticButtonPos.y}px)` }}
@@ -1135,7 +1126,7 @@ const Portfolio = () => {
                 <h3 className="text-5xl md:text-6xl font-bold mb-12 animate-fade-in-up animation-delay-300">Ready to create something awesome together?</h3>
                 <button 
                   onClick={() => setCurrentPage('contact')}
-                  className="magnetic-button group inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-semibold text-lg hover:bg-gray-800 hover:scale-105 transition-all duration-300 animate-scale-in"
+                  className="magnetic-button group inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-semibold text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 animate-scale-in"
                   onMouseMove={handleMagneticMove}
                   onMouseLeave={handleMagneticLeave}
                   style={{ transform: `translate(${magneticButtonPos.x}px, ${magneticButtonPos.y}px)` }}

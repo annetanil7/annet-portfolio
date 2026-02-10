@@ -20,31 +20,37 @@ const CustomCursor = () => {
     };
 
     const handleMouseOver = (e) => {
-      if (e.target.tagName === 'A' || 
-          e.target.tagName === 'BUTTON' || 
-          e.target.closest('a') ||
-          e.target.closest('button')) {
+      const target = e.target;
+      if (target.tagName === 'A' || 
+          target.tagName === 'BUTTON' || 
+          target.closest('a') ||
+          target.closest('button') ||
+          target.closest('[data-cursor-hover]')) {
         cursor?.classList.add('hover');
         cursorBorder?.classList.add('hover');
       }
     };
 
     const handleMouseOut = (e) => {
-      if (!e.relatedTarget?.closest('a') && 
-          !e.relatedTarget?.closest('button')) {
+      const relatedTarget = e.relatedTarget;
+      if (!relatedTarget?.closest('a') && 
+          !relatedTarget?.closest('button') &&
+          !relatedTarget?.closest('[data-cursor-hover]')) {
         cursor?.classList.remove('hover');
         cursorBorder?.classList.remove('hover');
       }
     };
 
     const animate = () => {
-      // Cursor follows immediately
-      cursorX += (mouseX - cursorX) * 0.3;
-      cursorY += (mouseY - cursorY) * 0.3;
+      // Smooth cursor following
+      const easing = 0.15;
+      const easingBorder = 0.08;
       
-      // Border follows with delay
-      borderX += (mouseX - borderX) * 0.1;
-      borderY += (mouseY - borderY) * 0.1;
+      cursorX += (mouseX - cursorX) * easing;
+      cursorY += (mouseY - cursorY) * easing;
+      
+      borderX += (mouseX - borderX) * easingBorder;
+      borderY += (mouseY - borderY) * easingBorder;
       
       if (cursor) {
         cursor.style.left = `${cursorX}px`;

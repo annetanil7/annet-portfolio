@@ -5,9 +5,6 @@ const ScrollBuddy = () => {
   const eyesRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isWalking, setIsWalking] = useState(false);
-  const lastScrollY = useRef(0);
-  const walkTimeout = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,14 +15,6 @@ const ScrollBuddy = () => {
       const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
       
       setScrollProgress(Math.min(progress, 100));
-      
-      // Detect if scrolling
-      if (Math.abs(scrollTop - lastScrollY.current) > 5) {
-        setIsWalking(true);
-        clearTimeout(walkTimeout.current);
-        walkTimeout.current = setTimeout(() => setIsWalking(false), 200);
-      }
-      lastScrollY.current = scrollTop;
     };
 
     const handleMouseMove = (e) => {
@@ -39,7 +28,6 @@ const ScrollBuddy = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout(walkTimeout.current);
     };
   }, []);
 
@@ -56,7 +44,7 @@ const ScrollBuddy = () => {
     const angle = Math.atan2(deltaY, deltaX);
     
     // Limit eye movement
-    const maxMove = 3;
+    const maxMove = 2.5;
     const eyeX = Math.cos(angle) * maxMove;
     const eyeY = Math.sin(angle) * maxMove;
     
@@ -66,62 +54,48 @@ const ScrollBuddy = () => {
   return (
     <div 
       ref={buddyRef}
-      className="fixed bottom-8 right-8 z-50 pointer-events-none"
+      className="fixed bottom-6 right-6 z-40 pointer-events-none opacity-60 hover:opacity-100 transition-opacity duration-300"
       style={{
-        transform: `translateY(-${scrollProgress * 3}px)`,
-        transition: 'transform 0.1s linear'
+        transform: `translateY(-${scrollProgress * 2.5}px)`,
+        transition: 'transform 0.1s linear, opacity 0.3s ease'
       }}
     >
-      {/* Character container */}
+      {/* Minimalist character */}
       <div className="relative">
-        {/* Body */}
-        <svg width="80" height="100" viewBox="0 0 80 100" className={isWalking ? 'animate-bounce' : ''}>
+        <svg width="60" height="75" viewBox="0 0 60 75" className="filter drop-shadow-lg">
           {/* Head */}
-          <circle cx="40" cy="25" r="18" fill="#FFE4B5" stroke="#333" strokeWidth="2"/>
+          <circle cx="30" cy="20" r="14" fill="#ffffff" stroke="#0a0a0a" strokeWidth="1.5" opacity="0.9"/>
           
-          {/* Hair */}
-          <path d="M 22 20 Q 25 10, 40 12 Q 55 10, 58 20" fill="#8B4513" stroke="#333" strokeWidth="1.5"/>
-          
-          {/* Eyes container */}
-          <g ref={eyesRef}>
-            {/* Left eye */}
-            <circle cx="33" cy="25" r="3" fill="#333"/>
-            {/* Right eye */}
-            <circle cx="47" cy="25" r="3" fill="#333"/>
+          {/* Eyes container with smooth tracking */}
+          <g ref={eyesRef} style={{ transition: 'transform 0.1s ease-out' }}>
+            <circle cx="25" cy="20" r="2" fill="#0a0a0a"/>
+            <circle cx="35" cy="20" r="2" fill="#0a0a0a"/>
           </g>
           
           {/* Smile */}
-          <path d="M 32 32 Q 40 36, 48 32" stroke="#333" strokeWidth="2" fill="none" strokeLinecap="round"/>
+          <path d="M 24 25 Q 30 27, 36 25" stroke="#0a0a0a" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.7"/>
           
           {/* Body */}
-          <rect x="28" y="42" width="24" height="28" rx="4" fill="#4A90E2" stroke="#333" strokeWidth="2"/>
+          <rect x="22" y="33" width="16" height="20" rx="3" fill="#ffffff" stroke="#0a0a0a" strokeWidth="1.5" opacity="0.9"/>
           
-          {/* Arms */}
-          <line x1="28" y1="50" x2="18" y2={isWalking ? "55" : "58"} stroke="#FFE4B5" strokeWidth="4" strokeLinecap="round"/>
-          <line x1="52" y1="50" x2="62" y2={isWalking ? "58" : "55"} stroke="#FFE4B5" strokeWidth="4" strokeLinecap="round"/>
+          {/* Arms - subtle */}
+          <line x1="22" y1="40" x2="15" y2="45" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.9"/>
+          <line x1="38" y1="40" x2="45" y2="45" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.9"/>
           
-          {/* Legs - animated when walking */}
-          <line x1="35" y1="70" x2="30" y2={isWalking ? "85" : "88"} stroke="#4A90E2" strokeWidth="5" strokeLinecap="round"/>
-          <line x1="45" y1="70" x2="50" y2={isWalking ? "88" : "85"} stroke="#4A90E2" strokeWidth="5" strokeLinecap="round"/>
+          {/* Legs */}
+          <line x1="26" y1="53" x2="24" y2="65" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" opacity="0.9"/>
+          <line x1="34" y1="53" x2="36" y2="65" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" opacity="0.9"/>
           
           {/* Feet */}
-          <ellipse cx="30" cy={isWalking ? "88" : "90"} rx="6" ry="3" fill="#333"/>
-          <ellipse cx="50" cy={isWalking ? "90" : "88"} rx="6" ry="3" fill="#333"/>
+          <ellipse cx="24" cy="67" rx="4" ry="2" fill="#0a0a0a" opacity="0.8"/>
+          <ellipse cx="36" cy="67" rx="4" ry="2" fill="#0a0a0a" opacity="0.8"/>
         </svg>
         
-        {/* Speech bubble when at bottom */}
-        {scrollProgress > 95 && (
-          <div className="absolute -top-12 -left-20 bg-white text-black px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap animate-bounce">
-            You made it! 🎉
-            <div className="absolute bottom-[-6px] right-8 w-3 h-3 bg-white transform rotate-45"></div>
+        {/* Minimal progress indicator */}
+        <div className="absolute -left-12 top-1/2 transform -translate-y-1/2">
+          <div className="text-white/40 text-[10px] font-mono tracking-wider">
+            {Math.round(scrollProgress)}%
           </div>
-        )}
-      </div>
-      
-      {/* Progress indicator */}
-      <div className="absolute -left-16 top-1/2 transform -translate-y-1/2">
-        <div className="text-white text-xs font-mono bg-black/50 px-2 py-1 rounded">
-          {Math.round(scrollProgress)}%
         </div>
       </div>
     </div>

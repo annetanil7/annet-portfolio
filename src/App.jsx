@@ -747,15 +747,10 @@ const Portfolio = () => {
                 <p className="text-xs sm:text-sm md:text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl mb-4 sm:mb-6 md:mb-8 lg:mb-12 2xl:mb-16 max-w-4xl 2xl:max-w-5xl mx-auto hero-description text-gray-300 px-1 sm:px-2">
                   Turning Your Ideas Into Code, Design Into Experiences, And Curiosity Into Innovation.
                 </p>
-                <button 
-                  className="hero-button magnetic-button inline-flex items-center gap-1.5 sm:gap-2 md:gap-3 px-3 sm:px-5 md:px-8 lg:px-10 xl:px-12 py-2 sm:py-3 md:py-4 lg:py-5 xl:py-6 bg-gradient-to-r from-white/20 to-gray-200/20 backdrop-blur-lg rounded-full border border-white/30 font-semibold text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl hover:from-white/30 hover:to-gray-200/30 transition-all duration-300"
-                  onMouseMove={handleMagneticMove}
-                  onMouseLeave={handleMagneticLeave}
-                  style={{ transform: `translate(${magneticButtonPos.x}px, ${magneticButtonPos.y}px)` }}
-                >
-                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                  Open for projects
-                </button>
+                <div className="inline-flex items-center gap-2 text-sm sm:text-base md:text-lg text-white/80">
+                  <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                  <span>Open for projects</span>
+                </div>
               </div>
             </section>
 

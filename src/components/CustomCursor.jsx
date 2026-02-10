@@ -1,8 +1,20 @@
 import { useEffect, useRef } from 'react';
 
-const CustomCursor = () => {
+const CustomCursor = ({ scale = 1 }) => {
   const cursorRef = useRef(null);
   const cursorBorderRef = useRef(null);
+
+  useEffect(() => {
+    const cursor = cursorRef.current;
+    const cursorBorder = cursorBorderRef.current;
+    
+    if (cursor) {
+      cursor.style.setProperty('--cursor-scale', scale);
+    }
+    if (cursorBorder) {
+      cursorBorder.style.setProperty('--cursor-scale', scale);
+    }
+  }, [scale]);
 
   useEffect(() => {
     const cursor = cursorRef.current;
@@ -21,7 +33,16 @@ const CustomCursor = () => {
 
     const handleMouseOver = (e) => {
       const target = e.target;
-      if (target.tagName === 'A' || 
+      
+      // Check for hero text first (bigger cursor)
+      if (target.closest('[data-cursor-hero]')) {
+        cursor?.classList.add('hero-hover');
+        cursorBorder?.classList.add('hero-hover');
+        cursor?.classList.remove('hover');
+        cursorBorder?.classList.remove('hover');
+      }
+      // Regular hover for links and buttons (smaller cursor)
+      else if (target.tagName === 'A' || 
           target.tagName === 'BUTTON' || 
           target.closest('a') ||
           target.closest('button') ||
@@ -33,6 +54,14 @@ const CustomCursor = () => {
 
     const handleMouseOut = (e) => {
       const relatedTarget = e.relatedTarget;
+      
+      // Remove hero hover
+      if (!relatedTarget?.closest('[data-cursor-hero]')) {
+        cursor?.classList.remove('hero-hover');
+        cursorBorder?.classList.remove('hero-hover');
+      }
+      
+      // Remove regular hover
       if (!relatedTarget?.closest('a') && 
           !relatedTarget?.closest('button') &&
           !relatedTarget?.closest('[data-cursor-hover]')) {

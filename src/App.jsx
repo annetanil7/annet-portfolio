@@ -13,9 +13,7 @@ const Portfolio = () => {
   const [statsVisible, setStatsVisible] = useState(false);
   const [counters, setCounters] = useState({ years: 0, certs: 0, courses: 0, hours: 0 });
   const [magneticButtonPos, setMagneticButtonPos] = useState({ x: 0, y: 0 });
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const [mouseInside, setMouseInside] = useState(false);
-  const containerRef = useRef(null);
+  const [cursorScale, setCursorScale] = useState(2.5);
 
   const handleLoadComplete = () => {
     setIsLoading(false);
@@ -40,6 +38,11 @@ const Portfolio = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrollY(currentScrollY);
+      
+      // Cursor size based on scroll (bigger at top, normal when scrolled)
+      const heroHeight = 800;
+      const scale = currentScrollY < heroHeight ? 1 + (1 - currentScrollY / heroHeight) * 1.5 : 1;
+      setCursorScale(scale);
       
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setHeaderVisible(false);
@@ -108,29 +111,7 @@ const Portfolio = () => {
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
   };
 
-  // Handle cursor position for interactive background
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-    };
 
-    const handleMouseEnter = () => setMouseInside(true);
-    const handleMouseLeave = () => setMouseInside(false);
-
-    window.addEventListener('mousemove', handleMouseMove);
-    if (containerRef.current) {
-      containerRef.current.addEventListener('mouseenter', handleMouseEnter);
-      containerRef.current.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (containerRef.current) {
-        containerRef.current.removeEventListener('mouseenter', handleMouseEnter);
-        containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
-      }
-    };
-  }, []);
 
   const testimonials = [
     { name: "Priya Sharma", handle: "@annet", text: "Annet's creativity knows no bounds! His designs captured our brand's personality perfectly.", avatar: "https://framerusercontent.com/images/rfltlkHNBMe4GNB0krcido5DUo.png?width=96&height=96" },
@@ -143,8 +124,8 @@ const Portfolio = () => {
     <>
       {isLoading && <LoadingScreen onLoadComplete={handleLoadComplete} />}
       
-      <CustomCursor />
-      <div ref={containerRef} className="font-sans antialiased overflow-hidden relative bg-black min-h-screen">
+      <CustomCursor scale={cursorScale} />
+      <div className="font-sans antialiased overflow-hidden relative bg-black min-h-screen">
       <style>{`
         @keyframes fade-in-up {
           from { opacity: 0; transform: translateY(30px); }
@@ -634,27 +615,36 @@ const Portfolio = () => {
         }
         .animate-scroll { animation: scroll 40s linear infinite; }
         
-        /* Interactive cursor glow */
-        .cursor-glow {
-          position: fixed;
-          width: 300px;
-          height: 300px;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(167, 139, 250, 0.15), rgba(167, 139, 250, 0.05), transparent);
-          pointer-events: none;
-          z-index: 1;
-          box-shadow: 0 0 60px rgba(167, 139, 250, 0.3), inset 0 0 60px rgba(167, 139, 250, 0.1);
-          filter: blur(40px);
+        /* Particle grid animation */
+        @keyframes particle-float {
+          0%, 100% {
+            transform: translate(0, 0);
+            opacity: 0.3;
+          }
+          50% {
+            transform: translate(10px, -10px);
+            opacity: 0.6;
+          }
         }
         
-        .cursor-glow.active {
-          animation: pulse-glow 2s ease-in-out infinite;
+        @keyframes line-draw {
+          0% {
+            stroke-dashoffset: 1000;
+          }
+          100% {
+            stroke-dashoffset: 0;
+          }
         }
         
-        @keyframes pulse-glow {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 0.8; }
+        /* Animated blob effect */
+        @keyframes blob {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
         }
+        .animate-blob { animation: blob 7s infinite; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
         
         /* Enhanced card hover effects */
         .card-hover {
@@ -681,46 +671,34 @@ const Portfolio = () => {
         }
       `}</style>
 
-      {/* Interactive cursor glow */}
-      {mouseInside && (
-        <div
-          className="cursor-glow active"
-          style={{
-            left: `${cursorPos.x}px`,
-            top: `${cursorPos.y}px`,
-            transform: 'translate(-50%, -50%)'
-          }}
-        />
-      )}
-
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerVisible ? 'translate-y-0' : '-translate-y-full'} bg-white/5 backdrop-blur-2xl border-b border-white/20 shadow-2xl`}>
-        <div className="max-w-7xl mx-auto px-2 sm:px-3 md:px-6 lg:px-8 xl:px-12 py-2 sm:py-3 md:py-5 lg:py-6 xl:py-7 flex items-center justify-between gap-0.5 sm:gap-1.5 md:gap-0 h-12 sm:h-14 md:h-16 lg:h-18 xl:h-20">
-          <button onClick={() => { setCurrentPage('home'); window.scrollTo(0, 0); }} className="text-xs sm:text-xs md:text-lg lg:text-2xl xl:text-3xl font-bold tracking-widest hover:text-white transition-colors text-white whitespace-nowrap flex-shrink-0\">
+      <nav className={`fixed top-4 left-4 right-4 z-50 transition-all duration-500 ${headerVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-3 sm:py-4 md:py-5 lg:py-6 flex items-center justify-between gap-2 sm:gap-3 md:gap-4 bg-gradient-to-r from-gray-100 to-gray-200 backdrop-blur-2xl border border-gray-300 shadow-2xl rounded-full">
+          <button onClick={() => { setCurrentPage('home'); window.scrollTo(0, 0); }} className="text-xs sm:text-xs md:text-lg lg:text-2xl xl:text-3xl font-bold tracking-widest hover:text-gray-700 transition-colors text-black whitespace-nowrap flex-shrink-0">
             ANNET ANIL
           </button>
           
           <div className="flex md:absolute md:left-1/2 md:-translate-x-1/2 items-center gap-0.5 sm:gap-1 md:gap-3 flex-shrink-0">
             <div className="group relative hidden sm:block">
-              <button onClick={() => { setCurrentPage('about'); window.scrollTo(0, 0); }} className="nav-icon-button h-8 sm:h-9 md:h-12 rounded-lg sm:rounded-xl bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/20 hover:border-white/30 transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 md:gap-3 px-1.5 sm:px-2 md:px-4 shadow-lg hover:shadow-xl">
-                <div className="icon-inner flex-shrink-0"><User size={12} className="text-white sm:block hidden" /></div>
-                <span className="label-tooltip text-white flex-1 text-center text-xs md:text-sm">About</span>
+              <button onClick={() => { setCurrentPage('about'); window.scrollTo(0, 0); }} className="nav-icon-button h-8 sm:h-9 md:h-12 rounded-lg sm:rounded-xl bg-black/10 hover:bg-black/10 backdrop-blur-xl border border-black/20 hover:border-black/30 transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 md:gap-3 px-1.5 sm:px-2 md:px-4 shadow-lg hover:shadow-xl">
+                <div className="icon-inner flex-shrink-0"><User size={12} className="text-black sm:block hidden" /></div>
+                <span className="label-tooltip text-black flex-1 text-center text-xs md:text-sm">About</span>
               </button>
             </div>
             <div className="group relative hidden sm:block">
-              <button onClick={() => { setCurrentPage('contact'); window.scrollTo(0, 0); }} className="nav-icon-button h-8 sm:h-9 md:h-12 rounded-lg sm:rounded-xl bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/20 hover:border-white/30 transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 md:gap-3 px-1.5 sm:px-2 md:px-4 shadow-lg hover:shadow-xl">
-                <div className="icon-inner flex-shrink-0"><Mail size={12} className="text-white sm:block hidden" /></div>
-                <span className="label-tooltip text-white flex-1 text-center text-xs md:text-sm">Contact</span>
+              <button onClick={() => { setCurrentPage('contact'); window.scrollTo(0, 0); }} className="nav-icon-button h-8 sm:h-9 md:h-12 rounded-lg sm:rounded-xl bg-black/10 hover:bg-black/10 backdrop-blur-xl border border-black/20 hover:border-black/30 transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 md:gap-3 px-1.5 sm:px-2 md:px-4 shadow-lg hover:shadow-xl">
+                <div className="icon-inner flex-shrink-0"><Mail size={12} className="text-black sm:block hidden" /></div>
+                <span className="label-tooltip text-black flex-1 text-center text-xs md:text-sm">Contact</span>
               </button>
             </div>
             <div className="group relative">
-              <button onClick={handleWhatsAppClick} className="nav-icon-button h-8 sm:h-9 md:h-12 rounded-lg sm:rounded-xl bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/20 hover:border-white/30 transition-all duration-300 flex items-center justify-center gap-0.5 sm:gap-1.5 md:gap-3 px-1.5 sm:px-2 md:px-4 shadow-lg hover:shadow-xl flex-shrink-0">
-                <div className="icon-inner flex-shrink-0"><MessageCircle size={12} className="text-white" /></div>
-                <span className="label-tooltip text-white flex-1 text-center text-xs md:text-sm whitespace-nowrap hidden sm:inline">Get in touch</span>
+              <button onClick={handleWhatsAppClick} className="nav-icon-button h-8 sm:h-9 md:h-12 rounded-lg sm:rounded-xl bg-black/10 hover:bg-black/10 backdrop-blur-xl border border-black/20 hover:border-black/30 transition-all duration-300 flex items-center justify-center gap-0.5 sm:gap-1.5 md:gap-3 px-1.5 sm:px-2 md:px-4 shadow-lg hover:shadow-xl flex-shrink-0">
+                <div className="icon-inner flex-shrink-0"><MessageCircle size={12} className="text-black" /></div>
+                <span className="label-tooltip text-black flex-1 text-center text-xs md:text-sm whitespace-nowrap hidden sm:inline">Get in touch</span>
               </button>
             </div>
           </div>
 
-          <button onClick={handleWhatsAppClick} className="hidden md:block px-3 md:px-4 lg:px-5 py-1.5 md:py-2 lg:py-2.5 bg-white/10 hover:bg-white hover:text-black rounded-lg md:rounded-xl font-semibold transition-all duration-300 border border-white/20 text-white text-xs md:text-sm lg:text-sm flex-shrink-0">
+          <button onClick={handleWhatsAppClick} className="hidden md:block px-3 md:px-4 lg:px-5 py-1.5 md:py-2 lg:py-2.5 bg-black hover:bg-black/80 text-white rounded-lg md:rounded-xl font-semibold transition-all duration-300 border border-black text-xs md:text-sm lg:text-sm flex-shrink-0">
             Get In Touch
           </button>
         </div>
@@ -732,13 +710,35 @@ const Portfolio = () => {
         {currentPage === 'home' && (
           <div className="min-h-screen bg-black text-white">
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-              {/* Simple black background with subtle grid */}
-              <div className="absolute inset-0 bg-black">
-                <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.15) 1px, transparent 0)', backgroundSize: '40px 40px'}}></div>
-              </div>
+              {/* Solid black background */}
+              <div className="absolute inset-0 bg-black"></div>
+              
+              {/* Animated dot grid pattern - increased opacity */}
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.15) 2px, transparent 2px)',
+                backgroundSize: '60px 60px',
+                animation: 'particle-float 20s ease-in-out infinite'
+              }}></div>
+              
+              {/* Horizontal lines */}
+              <div className="absolute inset-0 opacity-20" style={{
+                backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '100% 80px'
+              }}></div>
+              
+              {/* Vertical lines */}
+              <div className="absolute inset-0 opacity-20" style={{
+                backgroundImage: 'linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                backgroundSize: '80px 100%'
+              }}></div>
+              
+              {/* Center spotlight */}
+              <div className="absolute inset-0" style={{
+                background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 60%)'
+              }}></div>
 
               <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 md:px-6 text-center py-4 sm:py-0">
-                <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-[160px] 2xl:text-[200px] font-black mb-3 sm:mb-4 md:mb-6 lg:mb-8 2xl:mb-12 leading-tight sm:leading-none tracking-tight">
+                <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-[160px] 2xl:text-[200px] font-black mb-3 sm:mb-4 md:mb-6 lg:mb-8 2xl:mb-12 leading-tight sm:leading-none tracking-tight" data-cursor-hero>
                   <span className="inline-block relative group">
                     <span className="block text-white">DIGITAL</span>
                     <span className="block bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">DESIGNER</span>
@@ -747,6 +747,21 @@ const Portfolio = () => {
                 <p className="text-xs sm:text-sm md:text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl mb-4 sm:mb-6 md:mb-8 lg:mb-12 2xl:mb-16 max-w-4xl 2xl:max-w-5xl mx-auto hero-description text-gray-300 px-1 sm:px-2">
                   Turning Your Ideas Into Code, Design Into Experiences, And Curiosity Into Innovation.
                 </p>
+                
+                {/* Resume Download Button */}
+                <div className="mb-6 sm:mb-8 md:mb-10">
+                  <a 
+                    href="/annet-portfolio/resume.pdf" 
+                    download="Annet_Anil_Resume.pdf"
+                    className="resume-button group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-semibold text-sm md:text-base hover:bg-gray-100 transition-all duration-300"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Download Resume
+                  </a>
+                </div>
+                
                 <div className="inline-flex items-center gap-2 text-sm sm:text-base md:text-lg text-white/80">
                   <span className="w-2 h-2 bg-green-400 rounded-full"></span>
                   <span>Open for projects</span>
@@ -967,12 +982,26 @@ const Portfolio = () => {
               <div className="absolute bottom-32 left-20 w-96 h-96 bg-gray-500/5 rounded-full blur-3xl"></div>
             </div>
             <section className="min-h-screen flex items-center justify-end px-4 sm:px-6 lg:px-24 pt-20 sm:pt-32 relative z-10">
-              <div className="max-w-2xl w-full">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold mb-8 sm:mb-12 animate-slide-in-left hover:text-white transition-all duration-300 cursor-pointer">ABOUT</h1>
-                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed animate-fade-in-up animation-delay-300 hover:text-gray-200 transition-colors duration-300">
-                  It's Annet. A digital creative, hailing 👋 with a passion for blending technology, design, and innovation, I turn ideas into{' '}
-                  <span className="text-white font-semibold">code, design into experiences, and curiosity into innovation.</span>
-                </p>
+              <div className="max-w-2xl w-full flex items-center gap-8 lg:gap-12">
+                {/* Profile Photo */}
+                <div className="hidden lg:block flex-shrink-0">
+                  <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
+                    <img 
+                      src="/annet-portfolio/profile.png" 
+                      alt="Annet Anil" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                
+                {/* About Text */}
+                <div className="flex-1">
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold mb-8 sm:mb-12 animate-slide-in-left hover:text-white transition-all duration-300 cursor-pointer">ABOUT</h1>
+                  <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed animate-fade-in-up animation-delay-300 hover:text-gray-200 transition-colors duration-300">
+                    It's Annet👋 , A digital creative, hailing  with a passion for blending technology, design, and innovation, I turn ideas into{' '}
+                    <span className="text-white font-semibold">code, design into experiences, and curiosity into innovation.</span>
+                  </p>
+                </div>
               </div>
             </section>
 
@@ -1074,7 +1103,16 @@ const Portfolio = () => {
               <p className="text-sm uppercase tracking-wider text-white/60 mb-6 animate-fade-in-up">Experience</p>
               <h2 className="text-6xl md:text-7xl font-bold mb-24 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent animate-fade-in-up animation-delay-300">In The Past</h2>
 
-              <div className="max-w-6xl space-y-24">
+              <div className="max-w-6xl space-y-24 relative">
+                {/* Vertical progress line */}
+                <div className="absolute -left-12 top-0 bottom-0 w-1 bg-white/10 hidden md:block">
+                  <div 
+                    className="w-full bg-gradient-to-b from-white to-gray-400 transition-all duration-300 ease-out"
+                    style={{
+                      height: `${Math.min(100, Math.max(0, (scrollY - 3800) / 15))}%`
+                    }}
+                  ></div>
+                </div>
                 {[
                   {
                     period: 'December 2025 - Present',

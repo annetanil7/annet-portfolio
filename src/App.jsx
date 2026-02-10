@@ -1077,6 +1077,15 @@ const Portfolio = () => {
               <div className="max-w-6xl space-y-24">
                 {[
                   {
+                    period: 'December 2025 - Present',
+                    title: 'ReflexLabs UI/UX Engineer, Frontend Developer',
+                    points: [
+                      'Design and develop user-centric interfaces with a focus on exceptional user experience.',
+                      'Implement responsive frontend solutions using modern web technologies.',
+                      'Collaborate with cross-functional teams to deliver high-quality digital products.'
+                    ]
+                  },
+                  {
                     period: '2025 - present',
                     title: 'Content Creator Head',
                     points: [

@@ -1007,28 +1007,76 @@ const Portfolio = () => {
 
             <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-24">
               <p className="text-white/60 text-xs sm:text-sm uppercase tracking-wider mb-6 sm:mb-8 animate-fade-in-up">PROJECTS</p>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-12 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
-                BUS DRIVER BEHAVIOUR MANAGEMENT SYSTEM
-              </h2>
-              <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 max-w-4xl animate-fade-in-up animation-delay-600">
-                I have developed a IOT based Bus Driver System that helps track the speed of a bus and the distance at which it overtakes during traffic which helps control and evaluate the discipline of the bus driver during taxi.
-              </p>
-              <p className="text-xs sm:text-sm md:text-base text-gray-400 mb-12 sm:mb-16 max-w-4xl leading-relaxed">
-                Components such as Ultrasonic Distance Sensor HC-SR04 Module, OLED Display, Raspberry Pi UNO RP2040 Development Board were used in the project.
-              </p>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 max-w-3xl">
-                {[
-                  { icon: '📡', label: 'IOT' },
-                  { icon: '⏱️', label: 'Time tracking' },
-                  { icon: '📊', label: 'Sensors' },
-                  { icon: '📄', label: 'Reports' }
-                ].map((item, idx) => (
-                  <div key={idx} className="border border-white/20 rounded-xl py-3 sm:py-4 px-3 sm:px-6 text-center hover:bg-white/5 hover:border-white/30 transition-all card-hover">
-                    <span className="text-xl sm:text-2xl block mb-1 sm:mb-2">{item.icon}</span>
-                    <span className="text-xs sm:text-sm font-medium">{item.label}</span>
-                  </div>
-                ))}
+              {/* AI Fake News Detector */}
+              <div className="mb-16 sm:mb-24 md:mb-32">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-12 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
+                  AI FAKE NEWS DETECTOR SYSTEM
+                </h2>
+                <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 max-w-4xl animate-fade-in-up animation-delay-600">
+                  In a world driven by information, misinformation spreads faster than ever. To tackle this challenge, I built an AI-Powered Fake News Detection System that analyzes news headlines and articles in real-time to determine their authenticity with high confidence.
+                </p>
+                <div className="text-xs sm:text-sm md:text-base text-gray-400 mb-8 sm:mb-12 max-w-4xl leading-relaxed space-y-4">
+                  <p><strong className="text-gray-300">🧠 What this project does:</strong><br/>
+                  Users can paste any news headline or article, and the system instantly classifies it as Real or Fake with a confidence score. The goal is simple: make fact-checking faster, smarter, and more accessible.</p>
+                  
+                  <p><strong className="text-gray-300">💻 Tech Stack & Architecture:</strong><br/>
+                  • Frontend: Streamlit with custom CSS (Dark/Cyber UI aesthetic)<br/>
+                  • Backend: Python 3.9+, Pandas for data processing<br/>
+                  • Machine Learning: Logistic Regression + TF-IDF Vectorization<br/>
+                  • Dataset: FakeNewsNet (GossipCop dataset with 20k+ articles)<br/>
+                  • Model Accuracy: ~84% on test data</p>
+                  
+                  <p><strong className="text-gray-300">⚙️ Key Features:</strong><br/>
+                  • Real-time fake news verification with confidence scoring<br/>
+                  • Live "Breaking News" ticker for immersive experience<br/>
+                  • Fake News Feed displaying actual misinformation examples<br/>
+                  • Modern, responsive UI with dynamic interactions</p>
+                  
+                  <p><strong className="text-gray-300">🧪 Model Approach:</strong><br/>
+                  I used TF-IDF to convert text into meaningful numerical vectors and trained a Logistic Regression classifier to distinguish real vs fake news. While I explored deep learning models like LSTMs, Logistic Regression provided nearly the same accuracy with significantly faster performance — making it ideal for real-time web deployment.</p>
+                </div>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 max-w-3xl">
+                  {[
+                    { icon: '🤖', label: 'Machine Learning' },
+                    { icon: '🐍', label: 'Python' },
+                    { icon: '📊', label: 'Data Analysis' },
+                    { icon: '🎯', label: '84% Accuracy' }
+                  ].map((item, idx) => (
+                    <div key={idx} className="border border-white/20 rounded-xl py-3 sm:py-4 px-3 sm:px-6 text-center hover:bg-white/5 hover:border-white/30 transition-all card-hover">
+                      <span className="text-xl sm:text-2xl block mb-1 sm:mb-2">{item.icon}</span>
+                      <span className="text-xs sm:text-sm font-medium">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bus Driver System */}
+              <div>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-12 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
+                  BUS DRIVER BEHAVIOUR MANAGEMENT SYSTEM
+                </h2>
+                <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 max-w-4xl animate-fade-in-up animation-delay-600">
+                  I have developed a IOT based Bus Driver System that helps track the speed of a bus and the distance at which it overtakes during traffic which helps control and evaluate the discipline of the bus driver during taxi.
+                </p>
+                <p className="text-xs sm:text-sm md:text-base text-gray-400 mb-12 sm:mb-16 max-w-4xl leading-relaxed">
+                  Components such as Ultrasonic Distance Sensor HC-SR04 Module, OLED Display, Raspberry Pi UNO RP2040 Development Board were used in the project.
+                </p>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 max-w-3xl">
+                  {[
+                    { icon: '📡', label: 'IOT' },
+                    { icon: '⏱️', label: 'Time tracking' },
+                    { icon: '📊', label: 'Sensors' },
+                    { icon: '📄', label: 'Reports' }
+                  ].map((item, idx) => (
+                    <div key={idx} className="border border-white/20 rounded-xl py-3 sm:py-4 px-3 sm:px-6 text-center hover:bg-white/5 hover:border-white/30 transition-all card-hover">
+                      <span className="text-xl sm:text-2xl block mb-1 sm:mb-2">{item.icon}</span>
+                      <span className="text-xs sm:text-sm font-medium">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </section>
 
